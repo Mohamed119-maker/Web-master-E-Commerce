@@ -15,6 +15,7 @@ module.exports = {
                 "second-color": "#00B853",
                 "text-color": "#202435",
                 "btn-color": "#FFCD00",
+                "card-color": "#F3F3F6"
             }
         },
     },
