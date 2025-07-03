@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, CanActivateFn } from '@angular/router';
 import { RedirectComponent } from './pages/redirect/redirect/redirect.component';
 import { authGuard } from './core/guard/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -6,6 +6,7 @@ import { AuthLayoutComponent } from './layouts/components/auth-layout/auth-layou
 import { SignInComponent } from './pages/auth/pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/auth/pages/sign-up/sign-up.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   {
@@ -16,9 +17,10 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () =>
-      import('./pages/home/home.component').then((m) => m.HomeComponent),
+    component:HomeComponent,
     title: 'Home',
+    canActivate: [authGuard],
+
   },
 
   // {
@@ -54,12 +56,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/shop/shop/shop.component').then((m) => m.ShopComponent),
     title: 'Shop',
+    canActivate: [authGuard],
   },
   {
     path: 'blog',
     loadComponent: () =>
       import('./pages/blog/blog/blog.component').then((m) => m.BlogComponent),
     title: 'Blog',
+    canActivate: [authGuard],
   },
   {
     path: 'contact',
@@ -68,6 +72,7 @@ export const routes: Routes = [
         (m) => m.ContactComponent
       ),
     title: 'Contact',
+    canActivate: [authGuard],
   },
   {
     path: 'aboutus',
@@ -76,6 +81,7 @@ export const routes: Routes = [
         (m) => m.AboutusComponent
       ),
     title: 'About Us',
+    canActivate: [authGuard],
   },
   {
     path: 'cart',
@@ -100,6 +106,7 @@ export const routes: Routes = [
         './pages/product-details/product-details/product-details.component'
       ).then((m) => m.ProductDetailsComponent),
     title: 'Product Details',
+    canActivate: [authGuard],
   },
   { path: '**', component: NotFoundComponent, title: 'page not found' },
 ];

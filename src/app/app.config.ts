@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
@@ -10,7 +10,9 @@ import { provideHttpClient } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideHttpClient(),
+    provideRouter(routes , withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
+      withHashLocation(),
+      withViewTransitions()), provideHttpClient() ,
     provideClientHydration(withEventReplay()),
     provideAnimations(), // Required for toastr
     provideToastr({
