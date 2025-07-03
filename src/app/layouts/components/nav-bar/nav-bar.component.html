@@ -188,9 +188,14 @@
           </li>
           <li>
             <a routerLink="/wishlist" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
-              class="px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
+              class="px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">wish list
               <i class="fa-regular fa-heart w-5 h-5 pt-1"></i>
             </a>
+          </li>
+
+          <li>
+            <a role="button" (click)="authService.logout()"
+              class="block py-2 px-3 text-gray-500 hover:text-hoverBg rounded-md dark:text-white lg:dark:text-gray-400">Logout</a>
           </li>
 
 

@@ -53,7 +53,7 @@ export class AuthService {
         localStorage.removeItem('userToken');
         localStorage.removeItem('wishlist');
         this.userData = null;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/sign-in']);
       }
     });
   }
