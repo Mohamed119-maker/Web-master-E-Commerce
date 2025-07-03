@@ -1,4 +1,5 @@
-import { Component, HostListener, input } from '@angular/core';
+import { AuthService } from './../../../core/services/auth.service';
+import { Component, HostListener, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -9,13 +10,15 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavBarComponent {
 
-  // Navigation links
-   isLogin = input<boolean>(true);
+
 
   // Language dropdown
   selectedLanguage: string = 'English';
   isLanguageDropdownOpen: boolean = false;
   languages: string[] = ['English', 'Arabic', 'French', 'Spanish'];
+
+  //auth service
+  authService=inject(AuthService)
 
   // Currency dropdown
   selectedCurrency: string = 'USD';
