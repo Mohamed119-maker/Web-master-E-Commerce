@@ -1,1 +1,158 @@
-<p>sign-in works!</p>
+<div class="">
+
+  <section class=" w-[90%] lg:w-[70%] mx-auto py-9 lg:py-16  ">
+    <h1 class="text-[25px] font-bold text-green-600 text-center mb-5 dark:text-green-500">Login Now </h1>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+
+      <div class="mb-3">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-600">emali:
+        </label>
+        <input formControlName="email" type="email" id="email"
+          class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-green-300 focus:border-green-300 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+
+        @let emailControl = loginForm.get("email");
+
+
+        @if(emailControl?.errors && emailControl?.touched){
+
+        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert">
+          <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="mt-1.5 list-disc list-inside">
+
+              @if (emailControl?.getError("required")) {
+              <li>your Email is Required</li>
+              }
+
+              @else {
+              <li>Email Must Be Valid</li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        }
+
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-600">password:
+        </label>
+        <div class="relative">
+          <input formControlName="password" [type]="shwoPass? 'password': 'text'" id="password" class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg
+         focus:ring-green-300 focus:border-green-300 block w-full p-2.5 dark:bg-gray-700
+          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+           dark:focus:border-blue-500">
+
+          <span (click)="changeType()"
+            class="absolute top-[50%] -translate-y-1/2 right-[10px] cursor-pointer text-gray-500 dark:text-gray-900 md:text-[20px]">
+            <i id="icon" class="fa-solid" [class.fa-eye]="shwoPass" [class.fa-eye-slash]="!shwoPass"></i></span>
+        </div>
+
+        <a routerLink="/forgetpassword"
+          class="text-red-900 mt-3 inline-block  cursor-pointer  hover:text-blue-800">Forget Password ?</a>
+
+        @let passwordControl = loginForm.get("password");
+
+
+        @if(passwordControl?.errors && passwordControl?.touched){
+
+        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert">
+          <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="mt-1.5 list-disc list-inside">
+
+              @if (passwordControl?.getError("required")) {
+              <li>your password is Required</li>
+              }
+
+              @else {
+              <span class="font-medium">Your password must meet the following requirements:</span>
+              <li> Starts with an uppercase letter (A-Z).</li>
+              <li> Contains at least 6 characters.</li>
+              <li>Can include letters, numbers, or underscores (_) only</li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        }
+
+      </div>
+
+
+
+
+      <div class="flex items-center justify-between">
+
+        <p class="text-[10px] md:text-[16px]  text-nowrap dark:text-orange-500">You don't have an account
+          <a routerLink="/sign-up" class="text-green-700 bg-green-200 text-nowrap ms-1 md:ms-1 hover:bg-green-100">Sign
+            up now!</a>
+
+        </p>
+
+        <div class="text-end w-[20%]">
+          <button [disabled]="loading" type="submit" class="main-btn ">
+
+            @if (loading) {
+            <span><i class="fa-solid fa-spinner fa-spin"></i></span>
+            }
+
+            Login</button>
+        </div>
+
+      </div>
+
+      @if(msgEmailExist){
+      <div
+        class="flex items-center p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert">
+        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div class="">
+          <span class="font-medium"></span> {{msgEmailExist}}
+        </div>
+      </div>
+      }
+
+
+      @if (msgSuccess) {
+      <div
+        class="flex items-center p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+        role="alert">
+        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <div class="">
+          <span class="font-medium">{{msgSuccess}}</span>
+        </div>
+      </div>
+      }
+
+    </form>
+
+  </section>
+
+
+
+</div>
