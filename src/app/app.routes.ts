@@ -7,6 +7,7 @@ import { SignInComponent } from './pages/auth/pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/auth/pages/sign-up/sign-up.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MainLayoutComponent } from './layouts/components/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
@@ -15,21 +16,8 @@ export const routes: Routes = [
     pathMatch: 'full',
     title: 'Home',
   },
-  {
-    path: 'home',
-    component:HomeComponent,
-    title: 'Home',
-    canActivate: [authGuard],
 
-  },
-
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   resolve: [RedirectComponent],
-  // },
-
-  {
+    {
     path: '',
     component: AuthLayoutComponent,
     children: [
@@ -51,21 +39,31 @@ export const routes: Routes = [
     ],
   },
 
-  {
+   {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      {
+    path: 'home',
+    component:HomeComponent,
+    title: 'Home',
+    canActivate: [authGuard],
+    },
+    {
     path: 'shop',
     loadComponent: () =>
       import('./pages/shop/shop/shop.component').then((m) => m.ShopComponent),
     title: 'Shop',
     canActivate: [authGuard],
-  },
-  {
+    },
+     {
     path: 'blog',
     loadComponent: () =>
       import('./pages/blog/blog/blog.component').then((m) => m.BlogComponent),
     title: 'Blog',
     canActivate: [authGuard],
   },
-  {
+   {
     path: 'contact',
     loadComponent: () =>
       import('./pages/contact/contact/contact.component').then(
@@ -83,7 +81,7 @@ export const routes: Routes = [
     title: 'About Us',
     canActivate: [authGuard],
   },
-  {
+   {
     path: 'cart',
     loadComponent: () =>
       import('./pages/cart/cart.component').then((m) => m.CartComponent),
@@ -108,5 +106,13 @@ export const routes: Routes = [
     title: 'Product Details',
     canActivate: [authGuard],
   },
-  { path: '**', component: NotFoundComponent, title: 'page not found' },
+ { path: '**', component: NotFoundComponent, title: 'page not found' },
+    ]
+  },
+
+
+
+
+
+
 ];

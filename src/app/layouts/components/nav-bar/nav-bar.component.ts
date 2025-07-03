@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -8,6 +8,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+
+  // Navigation links
+   isLogin = input<boolean>(true);
+
   // Language dropdown
   selectedLanguage: string = 'English';
   isLanguageDropdownOpen: boolean = false;
