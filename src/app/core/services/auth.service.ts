@@ -6,13 +6,14 @@ import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { environment } from '../../shared/environments';
+import { PlateformService } from './plateForm/plateform.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
-
+  constructor(private httpClient: HttpClient) { }
+  plateformService = inject(PlateformService)
   userData: any = null;
 
   router = inject(Router);
@@ -77,5 +78,8 @@ export class AuthService {
       `${environment.baseUrl}/api/v1/auth/resetPassword`,
       data
     );
+  }
+  getTokenUser(): string {
+    return localStorage.getItem("userToken") || '';
   }
 }
