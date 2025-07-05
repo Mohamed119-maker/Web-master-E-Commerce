@@ -13,7 +13,8 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { headersInterceptor } from './core/interceptors/headers/headers.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +25,8 @@ export const appConfig: ApplicationConfig = {
       withHashLocation(),
       withViewTransitions()
     ),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+   withInterceptors([headersInterceptor])),
     provideClientHydration(withEventReplay()),
     provideAnimations(), // Required for toastr
     provideToastr({
