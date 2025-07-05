@@ -1,7 +1,9 @@
-import { Component, HostListener, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, HostListener, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductsService } from '../../../core/services/products/products.service';
 import { ICategory } from '../../../shared/interfaces/icategory';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,6 +14,11 @@ import { ICategory } from '../../../shared/interfaces/icategory';
 export class NavBarComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   categories: WritableSignal<ICategory[]> = signal([]);
+
+
+
+
+
   // Language dropdown
   selectedLanguage: string = 'English';
   isLanguageDropdownOpen: boolean = false;
@@ -28,6 +35,9 @@ export class NavBarComponent implements OnInit {
       }
     })
   }
+
+  //auth service
+  authService = inject(AuthService)
 
   // Currency dropdown
   selectedCurrency: string = 'USD';

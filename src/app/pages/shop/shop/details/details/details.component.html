@@ -1,0 +1,78 @@
+@if(product().data!=undefined){
+<section class="fixed z-[9999] bg-[#00000069] min-h-screen w-full inset-0 overflow-auto" #section>
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-sm p-6 max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Product Images -->
+        <div class="md:col-span-1">
+          <div class="flex flex-col space-y-4">
+            <!-- Main Image -->
+            <div class="flex justify-center">
+              <img [src]="product().data.imageCover" [alt]="product().data.title"
+                class="rounded-xl border w-full max-w-sm object-contain" />
+            </div>
+            <!-- Thumbnail Images -->
+            <div class="flex justify-center space-x-2">
+              @for (img of product().data.images; track $index) {
+              <div class="flex flex-wrap">
+                <img [src]="img" [alt]="product().data.title"
+                  class="border rounded-md  object-contain  mx-auto cursor-pointer hover:border-main-color transition-colors thumbnail-img">
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- Product Info -->
+        <div class="md:col-span-2 space-y-6">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">SkinnyPop Popcorn SkinnyPack Original</h1>
+            <span class="text-xl font-semibold text-main-color">{{product().data.price| currency }}</span>
+            <div class="flex items-center mt-2">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="text-sm text-gray-600 ml-2">{{product().data.ratingsAverage}}</span>
+            </div>
+          </div>
+
+          <!-- Quantity Controls -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-gray-700">Quantity: {{product().data.quantity}}</label>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button
+            class="bg-main-color hover:bg-main-hover text-white w-full py-3 rounded-md font-semibold transition-colors"
+            (click)="addToCart(product().data.id)">
+            <i class="fa fa-shopping-cart mr-2"></i> Add to Cart
+          </button>
+
+          <!-- Wishlist & Share -->
+          <div class="flex space-x-4">
+            <button id="wishlistBtn"
+              class="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 flex-1"
+              (click)="addToWishList(product().data.id)">
+              <i class="fa fa-heart"></i> Wishlist
+            </button>
+            <button
+              class="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 flex-1"
+              (click)="shareProduct(product().data.imageCover)">
+              <i class="fa fa-share"></i> Share
+            </button>
+          </div>
+
+          <!-- Product Details -->
+          <div class="mt-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-3">Product Details:</h2>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              {{product().data.description}}
+            </p>
+          </div>
+        </div>
+        <button class=" bg-main-color text-white p-2 rounded" (click)="fireEventCloseWindowDetails()">Back</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

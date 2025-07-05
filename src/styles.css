@@ -14,5 +14,11 @@ p,
 li,
 a,
 span {
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+@layer components {
+  .main-btn {
+    @apply bg-green-500 disabled:bg-gray-500 text-white py-1 px-4 rounded hover:bg-green-800 transition-colors;
+  }
 }
