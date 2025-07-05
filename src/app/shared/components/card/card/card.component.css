@@ -1,0 +1,29 @@
+h2 {
+    line-height: 19.6px;
+}
+
+.stock,
+.rate,
+h3,
+.quantity span {
+    font-family: "Dosis", sans-serif;
+
+}
+
+.stock {
+    line-height: 16.5px;
+}
+
+/* Progress bar animations */
+.quantity .rounded-full {
+    transition: all 0.3s ease-in-out;
+}
+
+.quantity .rounded-full:hover {
+    transform: scaleY(1.2);
+}
+
+/* Progress bar color transitions */
+.quantity .rounded-full div {
+    transition: width 0.5s ease-in-out, background-color 0.3s ease-in-out;
+}

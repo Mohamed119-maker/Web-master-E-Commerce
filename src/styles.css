@@ -5,6 +5,18 @@
 @import 'flowbite/dist/flowbite.css';
 @import '@fortawesome/fontawesome-free/css/all.css';
 
+
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+a,
+span {
+  font-family: "Inter", sans-serif;
+}
+
 @layer components {
   .main-btn {
     @apply bg-green-500 disabled:bg-gray-500 text-white py-1 px-4 rounded hover:bg-green-800 transition-colors;

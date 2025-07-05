@@ -1,6 +1,9 @@
-import { AuthService } from './../../../core/services/auth.service';
+import { OnInit, signal, WritableSignal } from '@angular/core';
 import { Component, HostListener, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ProductsService } from '../../../core/services/products/products.service';
+import { ICategory } from '../../../shared/interfaces/icategory';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,22 +11,38 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
+  private readonly productsService = inject(ProductsService);
+  categories: WritableSignal<ICategory[]> = signal([]);
+
+
 
 
 
   // Language dropdown
   selectedLanguage: string = 'English';
   isLanguageDropdownOpen: boolean = false;
-  languages: string[] = ['English', 'Arabic', 'French', 'Spanish'];
+  languages: string[] = ['English', 'Arabic'];
+  ngOnInit(): void {
+    this.getAllCategories()
+  }
+
+  getAllCategories(): void {
+    this.productsService.getAllCategories().subscribe({
+      next: (res) => {
+        this.categories.set(res.data);
+
+      }
+    })
+  }
 
   //auth service
-  authService=inject(AuthService)
+  authService = inject(AuthService)
 
   // Currency dropdown
   selectedCurrency: string = 'USD';
   isCurrencyDropdownOpen: boolean = false;
-  currencies: string[] = ['USD', 'EUR', 'EGB', 'JPY'];
+  currencies: string[] = ['USD', 'EGB'];
 
   // Close dropdowns when clicking outside
   @HostListener('document:click', ['$event'])
