@@ -17,24 +17,22 @@ export class CartComponent implements OnInit {
    private  toaster = inject(ToastrService);
    private  router = inject(Router);
   private readonly productsService = inject(CartService);
-CheckAuthUser(){
-  const token = localStorage.getItem('userToken')
-  console.log('token is :',token)
-  if(!token){
-  this.router.navigate(['/login'])
-  } else{
-    this.GetUserCart()
-  }
-}
+  numOfCartItems: number = 0;
   ngOnInit(): void {
-  this.CheckAuthUser()
+  this.getUserProductsInCart()
   }
-  GetUserCart():void{
+
+   getUserProductsInCart(): void {
     this.productsService.getUserCart().subscribe({
-      next:(res) =>{console.log('RES is ',res)},
-      error:(err)=> {this.toaster.error( 'error is', err.error.message)},
+      next: (res) => {
+        console.log(res);
+        this.numOfCartItems = res.numOfCartItems;
+        
+      }
+
     })
   }
+
 // 
 
 }
