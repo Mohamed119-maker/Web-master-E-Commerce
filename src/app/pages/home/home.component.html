@@ -60,9 +60,10 @@
     <div
         class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 my-5 border-[2px] border-[#ED174A] rounded-[7px]">
         @for (product of allProducts().slice(34,39); track product.title) {
-        <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
-            [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
-            [price]="product.price" [quantity]="product.quantity" [showProgress]="true">
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+            [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+            [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+            [showProgress]="true">
         </app-card>
         }
     </div>
@@ -137,9 +138,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 w-full ">
             @for (product of allProducts().slice(7, 11); track product._id) {
             <div class="border ">
-                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
-                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
-                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false" [showBtn]="false">
+                <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+                    [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+                    [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+                    [showProgress]="false" [showBtn]="false">
                 </app-card>
             </div>
             }
@@ -161,9 +163,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 w-full ">
             @for (product of allProducts().slice(11, 15); track product._id) {
             <div class="border ">
-                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
-                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
-                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false" [showBtn]="false">
+                <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+                    [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+                    [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+                    [showProgress]="false" [showBtn]="false">
                 </app-card>
             </div>
             }
@@ -215,9 +218,10 @@
         @for (product of allProducts() ; track product._id) {
         <ng-template carouselSlide>
             <div class="border rounded-[7px]">
-                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
-                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
-                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false">
+                <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+                    [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+                    [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+                    [showProgress]="false">
                 </app-card>
 
             </div>
