@@ -37,4 +37,24 @@ export class ProductsService {
       }
     })
   }
+    getCartUser(): Observable<any> {
+    return this.httpClient.get(`${environment.baseUrl}/api/v1/cart`, {
+      headers: {
+        token: this.authService.getTokenUser()
+      }
+    });
+  }
+  checkOutSeccion(phone: number, city: string, cartId: string): Observable<any> {
+    return this.httpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=http://localhost:4200`, {
+      "shippingAddress": {
+        details: "details",
+        phone: phone,
+        city: city
+      }
+    }, {
+      headers: {
+        token: this.authService.getTokenUser()
+      }
+    })
+  }
 }
