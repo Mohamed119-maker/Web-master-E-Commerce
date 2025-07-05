@@ -1,11 +1,266 @@
-<div>Some tags before</div>
-<owl-carousel-o [options]="customOptions">
+<section class="container  my-5">
 
-    @for (product of allProducts; track product.id) {
-    <ng-template carouselSlide>
-        <img [src]="product.imageCover" alt="">
-    </ng-template>
-    }
+    <div class="slider px-2 md:p-0 relative">
+        <owl-carousel-o [options]="customOptions">
 
-</owl-carousel-o>
-<div>Some tags after</div>
+            @for (img of images; track $index) {
+            <ng-template carouselSlide>
+                <img class="h-[500px] rounded-lg" [src]="img" alt="">
+            </ng-template>
+            }
+
+        </owl-carousel-o>
+
+        <div class="title absolute top-[64px] left-[5%] z-20">
+            <div class="off flex items-center gap-2">
+                <span class="font-[500] text-[12px] text-text-color uppercase">Exclusive Offer</span>
+                <div class="offer font-[600] text-[14px] text-[#038E42] py-2 px-4 rounded-[40px]">-20% Off</div>
+            </div>
+            <h1 class="font-[700] text-[48px] text-text-color md:w-[425px] py-5">Specialist in the
+                grocery store</h1>
+            <h3 class="text-[16px] font-[400] text-text-color">Only this week. Don't miss...</h3>
+            <h3 class="text-text-color">from <span class="text-[36px] font-[600] text-[#D51243]">$7.99</span></h3>
+            <button class="py-2 px-4 bg-main-color rounded-[30px] text-white">Shop Now <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div
+        class="banner-box  md:h-[104px] rounded-[7px] my-5  mx-2  bg-[#F8EFEA] md:mx-0 md:flex justify-between items-center px-5 text-center">
+        <h2 class="text-second-color text-[20px] font-[600] py-2"><span class="font-[700]">100% Secure delivery
+            </span>without
+            contacting the
+            courier</h2>
+        <div class="banner ">
+            <img class="w-full md:w-auto" src="/banner-box2.jpg.png" alt="banner image">
+        </div>
+        <button routerLink="/shop" class=" w-full md:w-auto py-2 px-3 my-2 md:m-0 rounded-[30px]">Shop
+            Now</button>
+    </div>
+</section>
+
+<section class="offers container">
+    <div class="grid lg:grid-cols-2 items-center gap-8 text-center lg:text-start">
+        <div class="lg:text-end">
+            <h3 class="text-[#233A95] font-[300] text-[26px]">Special Offers of the week!</h3>
+            <p class="text-[#9B9BB4] font-[400] text-[15px]">Ut placerat, magna quis porttitor vulputate, magna nunc
+                auctor ante.</p>
+        </div>
+        <div>
+            <span class="p-4 text-white rounded-md bg-[#ED174A]">71</span>
+            :
+            <span class="p-4 text-white rounded-md bg-[#ED174A]">14</span>
+            :
+            <span class="p-4 text-white rounded-md bg-[#ED174A]">43</span>
+            :
+            <span class="p-4 text-white rounded-md bg-[#ED174A]">16</span>
+
+        </div>
+    </div>
+    <div
+        class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 my-5 border-[2px] border-[#ED174A] rounded-[7px]">
+        @for (product of allProducts().slice(34,39); track product.title) {
+        <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
+            [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
+            [price]="product.price" [quantity]="product.quantity" [showProgress]="true">
+        </app-card>
+        }
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="grid lg:grid-cols-2 gap-6 my-8  container">
+    <!-- Banner 1 -->
+    <div class=" rounded-xl lg:h-[251px]  banner-box-1 relative">
+        <img class="w-full  rounded-lg " src="/bacola-banner-07.jpg.png" alt="">
+        <div class="absolute top-8 left-10 ">
+            <h1 class="featured-banner-title mb-2 font-[600] text-[28px] text-text-color">
+                The freshest<br />milk products
+            </h1>
+            <p class="font-[400] text-[12px] text-[#9B9BB4] mb-6">A family place for grocery</p>
+            <button routerLink="/shop" class="featured-banner-btn font-[500] text-[12px] text-white]">
+                Shop Now
+            </button>
+        </div>
+
+    </div>
+    <!-- Banner 2 -->
+    <div class=" rounded-xl lg:h-[251px]  banner-box-2 relative \">
+        <img class="w-full  rounded-lg " src="/bacola-banner-08.jpg.png" alt="">
+        <div class="absolute top-8 left-10">
+            <h1 class="featured-banner-title mb-2 font-[600] text-[28px] text-text-color">
+                Yogurt with
+                <br /> Delicious Fruit
+            </h1>
+            <p class="font-[400] text-[12px] text-[#9B9BB4] mb-6">A different kind of grocery store</p>
+            <button routerLink="/shop" class="featured-banner-btn font-[500] text-[12px] text-white]">
+                Shop Now
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<section class="categories container ">
+    <owl-carousel-o [options]="categorySlider">
+
+        @for (category of allCategories() ; track $index) {
+        <ng-template carouselSlide>
+            <div class="my-5 border p-4">
+                <img class="h-[146px] object-contain" [src]="category.image" [alt]="category.name">
+                <h3 class="text-text-color text-[14px] font-[600] text-center pt-3">{{category.name}}</h3>
+            </div>
+
+        </ng-template>
+        }
+
+    </owl-carousel-o>
+</section>
+
+
+<section class="container justify-center my-12">
+    <div class="best flex justify-between items-center my-4">
+        <div>
+            <h3 class="dois uppercase text-[20px] font-[600] text-text-color">best sellers</h3>
+            <p class="text-[#9B9BB4] font-[400] text-[12px]">Do not miss the current offers until the end of month.</p>
+        </div>
+        <div>
+            <button routerLink="/shop"
+                class="text-[#9B9BB4] bg-white border border-[#D9D9E9] hover:bg-[#D9D9E9] hover:border-white  transition-all delay-100 rounded-[30px] px-4 py-2  font-[500] text-[12px]">View
+                all <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row ">
+        <!-- Best Sellers -->
+
+        <!-- Left side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 w-full ">
+            @for (product of allProducts().slice(7, 11); track product._id) {
+            <div class="border ">
+                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
+                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
+                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false" [showBtn]="false">
+                </app-card>
+            </div>
+            }
+        </div>
+
+        <!-- Center Image & Text -->
+        <div class="flex flex-col items-center justify-center w-full    relative">
+            <div
+                class="text-center absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] md:translate-x-0  md:left-[26px]">
+
+                <h2 class="text-2xl md:text-3xl font-bold text-black">The Newest of <span class="text-btn-color">all
+                        products</span></h2>
+                <p class="text-xs text-white mt-1">JUST IN BACOLA</p>
+            </div>
+            <img class="h-full w-full" src="/auth-slider2.jpg" alt="Showcase" style="aspect-ratio: 1/1.2;" />
+        </div>
+
+        <!-- Right side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 w-full ">
+            @for (product of allProducts().slice(11, 15); track product._id) {
+            <div class="border ">
+                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
+                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
+                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false" [showBtn]="false">
+                </app-card>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="container grid lg:grid-cols-3  gap-10 justify-center my-5 ">
+
+    <div class="relative rounded-[7px] my-3 lg:my-0 ">
+        <img class="rounded-[7px] w-full " src="/bacola-banner-05.jpg.png" alt="bacola banner">
+        <div class="absolute w-full left-[40px] top-[50%] -translate-y-[50%] ">
+            <p class="text-second-color font-[600] text-[14px]">Weekend Discount 40%</p>
+            <h3 class="text-[#3E445A] font-[600] text-[24px] py-1">Natural Eggs</h3>
+            <p class="text-[#9B9BB4] font-[400] text-[12px] py-1">Eat one every day</p>
+            <button
+                class="px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[12px] hover:bg-[#9b9baa] transition-all delay-100">Shop
+                Now</button>
+        </div>
+    </div>
+    <div class="relative rounded-[7px] my-3 lg:my-0 ">
+        <img class="rounded-[7px] w-full" src="/bacola-banner-06.jpg.png" alt="bacola banner">
+        <div class="absolute left-[40px] top-[50%] -translate-y-[50%] ">
+            <p class="text-second-color font-[600] text-[14px]">Weekend Discount 40%</p>
+            <h3 class="text-[#3E445A] font-[600] text-[24px] py-1">Taste the Best</h3>
+            <p class="text-[#9B9BB4] font-[400] text-[12px] py-1">Shine the morning</p>
+            <button
+                class="px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[12px] hover:bg-[#9b9baa] transition-all delay-100">Shop
+                Now</button>
+        </div>
+    </div>
+    <div class="relative  rounded-[7px] my-3 lg:my-0  ">
+        <img class="rounded-[7px] w-full" src="/bacola-banner-10.jpg.png" alt="bacola banner">
+        <div class="absolute left-[40px] top-[50%] -translate-y-[50%] ">
+            <p class="text-second-color font-[600] text-[14px]">Weekend Discount 40%</p>
+            <h3 class="text-[#3E445A] font-[600] text-[24px] py-1">Ditch the Junk</h3>
+            <p class="text-[#9B9BB4] font-[400] text-[12px] py-1">Breakfast made better</p>
+            <button
+                class="px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[12px] hover:bg-[#9b9baa] transition-all delay-100">Shop
+                Now</button>
+        </div>
+    </div>
+
+</section>
+
+<section class="container">
+    <owl-carousel-o [options]="productSlider">
+
+        @for (product of allProducts() ; track product._id) {
+        <ng-template carouselSlide>
+            <div class="border rounded-[7px]">
+                <app-card [title]="product.title" [imageCover]="product.imageCover" [description]="product.description"
+                    [ratingsAverage]="product.ratingsAverage" [ratingsQuantity]="product.ratingsQuantity"
+                    [price]="product.price" [quantity]="product.quantity" [showProgress]="false">
+                </app-card>
+
+            </div>
+        </ng-template>
+        }
+
+    </owl-carousel-o>
+</section>
+
+<section class="container">
+    <div class="extra bg-[#FFEEF2] py-3 my-2 rounded-[7px]">
+        <p class="text-[#ED174A] text-center text-[16px] font-[700] uppercase">Save an Extra 5-10 % On Every Autoship
+            Order!</p>
+    </div>
+
+    <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-10 my-5">
+        <div class="rounded-[7px] flex flex-col p-4 md:p-0">
+            <img class="rounded-[7px]" src="/blog-3.jpg.png" alt="blog image">
+            <p class="dois text-[#9B9BB4] text-[13px] font-[600] py-1">Grocery</p>
+            <h4 class="text-text-color text-[20px] font-[600]">But I must explain to you how all this
+                <br>mistaken idea
+            </h4>
+            <p class="font-[500] text-[#71778E] text-[14px] py-1">Jan 13 2025 <span class="text-text-color">Sinan
+                    ISIK</span>
+            </p>
+        </div>
+        <div class="rounded-[7px] flex flex-col p-4 md:p-0">
+            <img class="rounded-[7px]" src="/blog-5.jpg.png" alt="blog image">
+            <p class="dois text-[#9B9BB4] text-[13px] font-[600]">Grocery</p>
+            <h4 class="text-text-color text-[20px] font-[600]">The Problem With Typefaces on the
+                <br> Web
+            </h4>
+            <p class="font-[500] text-[#71778E] text-[14px]">Jan 13 2025 <span class="text-text-color">Sinan ISIK</span>
+            </p>
+        </div>
+        <div class="rounded-[7px] flex flex-col p-4 md:p-0">
+            <img class="rounded-[7px]" src="/blog-1.jpg.png" alt="blog image">
+            <p class="dois text-[#9B9BB4] text-[13px] font-[600]">Grocery</p>
+            <h4 class="text-text-color text-[20px] font-[600]">English Breakfast Tea With Tasty
+                <br> Donut Desserts
+            </h4>
+            <p class="font-[500] text-[#71778E] text-[14px]">Jan 13 2025 <span class="text-text-color">Sinan ISIK</span>
+            </p>
+        </div>
+    </div>
+</section>

@@ -81,7 +81,7 @@
             <img class="w-[140px] sm:w-[166px] h-auto" src="/Link - Bacola Store.png" alt="Basket logo">
         </div>
 
-        <!-- Search Input -->
+        <!-- Search Input
         <div class="search-input flex-grow max-w-full sm:max-w-[500px] md:max-w-[763px] w-full">
             <form class="w-full">
                 <label for="default-search" class="sr-only">Search</label>
@@ -94,7 +94,7 @@
                         placeholder="Search for products..." />
                 </div>
             </form>
-        </div>
+        </div> -->
 
         <!-- Profile + Cart -->
         <div class="flex items-center gap-3">
@@ -123,7 +123,7 @@
 
 
 
-    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <nav class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                 class="flex items-center justify-between text-[15px] font-[600] w-full py-2 px-7 uppercase text-white bg-main-color rounded-[50px] md:w-auto"><i
@@ -132,16 +132,15 @@
 
             <!-- Dropdown menu -->
             <div id="dropdownNavbar"
-                class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                class="z-50 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 z-50 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                    @for (category of categories(); track category.name) {
                     <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        <a routerLink="/shop"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{category.name}}</a>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                    </li>
+                    }
+
 
                 </ul>
 
@@ -168,7 +167,7 @@
                     <li>
                         <a routerLink="/shop" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
                             class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
-                            <i class="fas fa-shopping-bag w-5 h-5 pt-1"></i>
+                            <i class="fas fa-shopping-bag w-5 h-5 pt-[2px]"></i>
                             Shop</a>
                     </li>
 
@@ -177,19 +176,19 @@
 
                         <a routerLink="/blog" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
                             class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
-                            <i class="fas fa-newspaper w-5 h-5 pt-1"></i>
+                            <i class="fas fa-newspaper w-5 h-5 pt-[2px]"></i>
                             Blog</a>
                     </li>
                     <li>
                         <a routerLink="/contact" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
                             class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
-                            <i class="fas fa-envelope w-5 h-5 pt-1"></i>
+                            <i class="fas fa-envelope w-5 h-5 pt-[2px]"></i>
                             Contact</a>
                     </li>
                     <li>
                         <a routerLink="/wishlist" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
                             class="px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
-                            <i class="fa-regular fa-heart w-5 h-5 pt-1"></i>
+                            <i class="fa-regular fa-heart w-5 h-5 pt-[2px]"></i>
                         </a>
                     </li>
 

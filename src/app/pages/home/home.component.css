@@ -1,0 +1,112 @@
+::ng-deep .owl-carousel {
+    position: relative;
+}
+
+::ng-deep .owl-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 7%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+::ng-deep .owl-theme .owl-dots .owl-dot.active span {
+    width: 13px;
+    height: 13px;
+    margin-top: 3.5px;
+    background-color: black;
+    border: 3px solid gray;
+}
+
+::ng-deep .owl-theme .owl-nav [class*=owl-] {
+    background-color: white;
+    color: black;
+    border: 1px solid #EDEEF5;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+::ng-deep .owl-theme .owl-nav {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 105%;
+    left: -2.5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+.banner-box button {
+    border: 1px solid #00B853;
+    background-color: #00B853;
+    color: white !important;
+    transition: all 0.5s;
+}
+
+.banner-box button:hover {
+    background-color: white;
+    color: #00B853 !important;
+}
+
+.title .off,
+.extra p,
+.dois {
+    font-family: "Dosis", sans-serif;
+}
+
+.title .offer {
+    background: linear-gradient(90deg, rgba(0, 184, 83, 0.2) 0%, rgba(32, 55, 88, 0) 100%);
+
+}
+
+.title h1 {
+    line-height: 57.6px;
+}
+
+.title h3 span {
+    line-height: 54px;
+    font-family: "Dosis", sans-serif;
+}
+
+.title button {
+    border: 1px solid #35AFA0;
+    transition: all 0.5s;
+}
+
+.title button:hover {
+    background-color: white;
+    color: #35AFA0;
+}
+
+
+
+.featured-banner-btn {
+    background-color: #ED174A !important;
+    color: #fff !important;
+    border: 2px solid #ED174A !important;
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.featured-banner-btn:hover {
+    background-color: #fff !important;
+    border: 2px solid #ED174A !important;
+    color: #ED174A !important;
+}
+
+.extra p {
+    letter-spacing: 4px;
+}

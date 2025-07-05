@@ -49,3 +49,8 @@
     background-color: #35AFA0 !important;
     color: white !important;
 }
+
+#navbar-dropdown ul li {
+    font-family: "Dosis", sans-serif;
+
+}
