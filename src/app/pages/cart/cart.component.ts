@@ -13,13 +13,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-  private _productsService  = inject(ProductsService);
+  private _productsService = inject(ProductsService);
   private toaster = inject(ToastrService);
   private router = inject(Router);
   private productsService = inject(CartService);
 
   CartTotalPrice: number = 0;
   cartProducts: any[] = [];
+  cartProductsID: string[] = [];
 
   ngOnInit(): void {
     this.GetUserCart();
@@ -30,7 +31,8 @@ export class CartComponent implements OnInit {
       next: (res) => {
         this.cartProducts = res.data.products;
         this.CartTotalPrice = res.data.totalCartPrice;
-        console.log(this.cartProducts);
+        this.cartProductsID = this.cartProducts.map(p => p.product.id);
+        console.log('cartProductsID:', this.cartProductsID);
       },
       error: (err) => {
         this.toaster.error(err.error?.message || 'Error fetching cart');
