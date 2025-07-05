@@ -1,1 +1,66 @@
-<p>cart works!</p>
+<!-- <div class="container">
+    <div class="box">
+        <h1 class="text-2xl">shopping Cart</h1>
+        <table class="table-auto">
+            <thead>
+                <tr>
+                    <td>producat</td>
+                    <td>price</td>
+                    <td>Quanity</td>
+                    <td>Subtotal</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div> -->
+<div class="max-w-4xl mx-auto p-4">
+  <div class="bg-white rounded-2xl shadow p-6">
+    <h2 class="text-xl font-bold mb-4">Shopping Cart</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full border-separate border-spacing-y-2">
+        <thead>
+          <tr class="bg-gray-100 rounded-xl">
+            <th class="p-2 text-left">Product</th>
+            <th class="p-2 text-left">Price</th>
+            <th class="p-2 text-left">Quantity</th>
+            <th class="p-2 text-left">Subtotal</th>
+            <th class="p-2 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- test data -->
+          <tr class="bg-white rounded-xl shadow">
+            <td class="p-2 flex items-center gap-4">
+              <img src="https://via.placeholder.com/60x60" alt="bordeaux" class="w-14 h-14 rounded" />
+              <span>Woman Bordeaux</span>
+            </td>
+            <td class="p-2">$499.00</td>
+            <td class="p-2 flex items-center gap-2">
+              <button class="bg-gray-200 w-8 h-8 rounded hover:bg-gray-300">-</button>
+              <span>1</span>
+              <button class="bg-gray-200 w-8 h-8 rounded hover:bg-gray-300">+</button>
+            </td>
+            <td class="p-2">$499.00</td>
+            <td class="p-2">
+              <button class="text-red-600 hover:text-red-800">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex justify-between items-center mt-6 border-t pt-4">
+      <div class="text-lg font-semibold">
+        Subtotal: <span class="text-black font-bold">848$</span>  
+        <br/>
+        Shipping: <span class="text-green-600">Free</span>
+      </div>
+      <!-- add check out link -->
+      <button router  class="bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-2 font-semibold">
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
