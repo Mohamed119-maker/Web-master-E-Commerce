@@ -26,8 +26,10 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
 
     ),
-
     provideHttpClient(withFetch(), withInterceptors([headersInterceptor])),
+
+    provideHttpClient(
+      withInterceptors([headersInterceptor])),
     provideClientHydration(withEventReplay()),
     provideAnimations(), // Required for toastr
     provideToastr({
