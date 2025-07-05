@@ -3,6 +3,7 @@ import { inject, Injectable, OnInit, PLATFORM_ID, signal, WritableSignal } from 
 import { Observable, of } from 'rxjs';
 import { environment } from '../../shared/environments';
 import { isPlatformBrowser } from '@angular/common';
+import { ProductsService } from './products/products.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class CartService {
   cartNumber:WritableSignal<number>=signal(0)
 private readonly platformId = inject(PLATFORM_ID);
+
   constructor(private httpClient: HttpClient)  { }
  private isLoggedIn(): boolean {
-    //  نتحقق إننا داخل المتصفح فقط
     if (isPlatformBrowser(this.platformId)) {
       return !!localStorage.getItem('token');
     }
@@ -24,15 +25,7 @@ private readonly platformId = inject(PLATFORM_ID);
     return this.httpClient.post(`${environment.baseUrl}/api/v1/cart`, {
       productId: id});
   }
-
-  getUserCart(): Observable<any> {
-      if (!this.isLoggedIn()) return of(null);
-    return this.httpClient.get(`${environment.baseUrl}/api/v1/cart`);
-  }
-  deleteItem(id: string): Observable<any> {
-    if (!this.isLoggedIn()) return of(null);
-    return this.httpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`);
-  }
+  
   updateCartQuantity(id: string, newCount: number): Observable<any> {
     if (!this.isLoggedIn()) return of(null);
     return this.httpClient.put(`${environment.baseUrl}/api/v1/cart/${id}`, {
@@ -44,6 +37,7 @@ private readonly platformId = inject(PLATFORM_ID);
     if (!this.isLoggedIn()) return of(null);
     return this.httpClient.delete(`${environment.baseUrl}/api/v1/cart`);
   }
-
-
-}
+deleteCartItem(productId: string): Observable<any> {
+  if (!this.isLoggedIn()) return of(null);
+  return this.httpClient.delete(`${environment.baseUrl}/api/v1/cart/${productId}`);
+}}
