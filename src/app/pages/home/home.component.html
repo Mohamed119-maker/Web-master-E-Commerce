@@ -11,7 +11,7 @@
 
         </owl-carousel-o>
 
-        <div class="title absolute top-[64px] left-[5%] z-20">
+        <div class="title absolute top-[64px] left-[5%] z-10">
             <div class="off flex items-center gap-2">
                 <span class="font-[500] text-[12px] text-text-color uppercase">Exclusive Offer</span>
                 <div class="offer font-[600] text-[14px] text-[#038E42] py-2 px-4 rounded-[40px]">-20% Off</div>
@@ -60,11 +60,19 @@
     <div
         class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 my-5 border-[2px] border-[#ED174A] rounded-[7px]">
         @for (product of allProducts().slice(34,39); track product.title) {
+        @if (isInWishlist(product._id)) {
         <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
             [description]="product.description" [ratingsAverage]="product.ratingsAverage"
             [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
             [showProgress]="true">
         </app-card>
+        }@else {
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+            [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+            [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+            [showProgress]="true">
+        </app-card>
+        }
         }
     </div>
 </section>
@@ -137,6 +145,14 @@
         <!-- Left side -->
         <div class="grid grid-cols-1 md:grid-cols-2 w-full ">
             @for (product of allProducts().slice(7, 11); track product._id) {
+            @if (isInWishlist(product._id)) {<div class="border ">
+                <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+                    [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+                    [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+                    [showProgress]="false" [showBtn]="false">
+                </app-card>
+            </div>}
+            @else {
             <div class="border ">
                 <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
                     [description]="product.description" [ratingsAverage]="product.ratingsAverage"
@@ -144,7 +160,7 @@
                     [showProgress]="false" [showBtn]="false">
                 </app-card>
             </div>
-            }
+            }}
         </div>
 
         <!-- Center Image & Text -->

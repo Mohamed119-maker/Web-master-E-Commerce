@@ -1,43 +1,52 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, PLATFORM_ID, WritableSignal, inject, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../shared/environments';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishlistService {
 
-  // حفظ عدد المنتجات في المفضلة باستخدام signal
-  favoriteNumber: WritableSignal<number> = signal(0);
+  constructor(private httpClient: HttpClient, private toastrService: ToastrService) { }
+  wishlistNumber: WritableSignal<number> = signal(0)
 
-  private platformId = inject(PLATFORM_ID);
+  success(message: string): void {
+    this.toastrService.success(message, 'Basket');
+  }
 
-  // تأكد إنك بتحمل البيانات من localStorage بس على الـ browser
-  favoriteList = signal<string[]>(isPlatformBrowser(this.platformId)
-    ? JSON.parse(localStorage.getItem('favoriteList') || '[]')
-    : []);
-  constructor(private httpClient: HttpClient) { }
-
-  // ✅ 1. إضافة منتج للمفضلة
+  error(message: string): void {
+    this.toastrService.error(message, 'Basket');
+  }
+  getAllProductWishlist(): Observable<any> {
+    return this.httpClient.get(`${environment.baseUrl}/api/v1/wishlist`, {
+      headers: {
+        token: `${localStorage.getItem('userToken')}`
+      }
+    })
+  }
   addProductToWishlist(id: string): Observable<any> {
-    return this.httpClient.post(`${environment.baseUrl}/api/v1/wishlist`, { productId: id });
+    return this.httpClient.post(`${environment.baseUrl}/api/v1/wishlist`,
+      {
+        productId: id
+      },
+      {
+        headers: {
+          token: `${localStorage.getItem('userToken')}`
+        }
+      }
+    );
   }
-
-  // ✅ 2. تحميل قائمة المفضلة من API
-  loadWishlist(): Observable<any> {
-    return this.httpClient.get(`${environment.baseUrl}/api/v1/wishlist`);
-  }
-
-  // ✅ 3. حذف منتج من المفضلة
   deleteProductFromWishlist(id: string): Observable<any> {
-    return this.httpClient.delete(`${environment.baseUrl}/api/v1/wishlist/${id}`);
+    return this.httpClient.delete(`${environment.baseUrl}/api/v1/wishlist/${id}`, {
+      headers: {
+        token: `${localStorage.getItem('userToken')}`
+      }
+    }
+    );
   }
 
-  // ✅ 4. إرجاع قائمة المنتجات المحفوظة في المفضلة
-  getWishlist(): string[] {
-    return this.favoriteList();
 
-  }
 }

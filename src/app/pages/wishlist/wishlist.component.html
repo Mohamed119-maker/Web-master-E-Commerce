@@ -3,13 +3,13 @@
     <p class="mb-6 text-gray-500">All your favorite products in one place.</p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @for (product of productsWishlist(); track product._id) {
+        @for (product of wishlistItems(); track product._id) {
         <div
             class="relative bg-white rounded-lg shadow p-4 flex flex-col items-center group transition hover:shadow-lg">
             <!-- Remove Button -->
             <button
                 class="absolute top-3 right-3 bg-white border border-[#35AFA0] text-[#35AFA0] rounded-full p-2 hover:bg-[#35AFA0] hover:text-white transition"
-                (click)="deleteProductFromWishlist(product._id)">
+                (click)="deleteProduct(product._id)">
                 <i class="fas fa-heart-broken"></i>
             </button>
             <!-- Product Image -->

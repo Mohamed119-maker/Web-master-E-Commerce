@@ -1,5 +1,5 @@
-import { CurrencyPipe, NgStyle, DecimalPipe } from '@angular/common';
-import { Component, Input, input, computed, inject } from '@angular/core';
+import { CurrencyPipe, NgStyle, DecimalPipe, isPlatformBrowser } from '@angular/common';
+import { Component, Input, OnInit, inject, PLATFORM_ID, signal, computed } from '@angular/core';
 import { WishlistService } from '../../../../core/services/wishlist/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,84 +9,154 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
   private readonly wishlistService = inject(WishlistService);
   private readonly toastrService = inject(ToastrService);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  @Input() title: string = '';
-  @Input() imageCover: string = '';
-  @Input() description: string = '';
-  @Input() _id: string = '';
-  @Input() ratingsAverage: number = 0;
-  @Input() ratingsQuantity: number = 0;
-  @Input() price: number = 0;
-  @Input() quantity: number = 0;
-  @Input() totalQuantity: number = 100; // Default total quantity
-  @Input() showProgress: boolean = true;
-  @Input() showBtn: boolean = true;
+  // Input properties
+  @Input() title!: string;
+  @Input() imageCover!: string;
+  @Input() description!: string;
+  @Input() _id!: string;
+  @Input() ratingsAverage!: number;
+  @Input() ratingsQuantity!: number;
+  @Input() price!: number;
+  @Input() quantity!: number;
+  @Input() totalQuantity!: number;
+  @Input() showProgress!: boolean;
+  @Input() showBtn!: boolean;
 
-  // Calculate percentage
+  // Reactive state using signals
+  isInWishlist = signal<boolean>(false);
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkWishlistStatus();
+    }
+  }
+
+  /**
+   * Check if product is in wishlist on component initialization
+   */
+  private checkWishlistStatus(): void {
+    const wishlist = this.getWishlistFromStorage();
+    this.isInWishlist.set(wishlist.includes(this._id));
+  }
+
+  /**
+   * Get wishlist array from localStorage
+   */
+  private getWishlistFromStorage(): string[] {
+    try {
+      const wishlistData = localStorage.getItem('wishlist');
+      return wishlistData ? JSON.parse(wishlistData) : [];
+    } catch (error) {
+      console.error('Error reading wishlist from localStorage:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Save wishlist array to localStorage
+   */
+  private saveWishlistToStorage(wishlist: string[]): void {
+    try {
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    } catch (error) {
+      console.error('Error saving wishlist to localStorage:', error);
+    }
+  }
+
+  /**
+   * Toggle product in wishlist
+   */
+  toggleWishlist(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    if (!localStorage.getItem('userToken')) {
+      this.toastrService.error('Please login to add items to wishlist');
+      return;
+    }
+
+    const currentWishlist = this.getWishlistFromStorage();
+    const isCurrentlyInWishlist = currentWishlist.includes(this._id);
+
+    if (isCurrentlyInWishlist) {
+      this.removeFromWishlist();
+    } else {
+      this.addToWishlist();
+    }
+  }
+
+  /**
+   * Add product to wishlist
+   */
+  private addToWishlist(): void {
+    this.wishlistService.addProductToWishlist(this._id).subscribe({
+      next: (response) => {
+        // Update local state immediately
+        this.isInWishlist.set(true);
+
+        // Update localStorage
+        const currentWishlist = this.getWishlistFromStorage();
+        if (!currentWishlist.includes(this._id)) {
+          currentWishlist.push(this._id);
+          this.saveWishlistToStorage(currentWishlist);
+        }
+
+        // Update wishlist count
+        this.wishlistService.wishlistNumber.set(response.data);
+        this.toastrService.success('Added to wishlist successfully');
+      },
+      error: (error) => {
+        console.error('Error adding to wishlist:', error);
+        this.toastrService.error('Failed to add to wishlist');
+      }
+    });
+  }
+
+  /**
+   * Remove product from wishlist
+   */
+  private removeFromWishlist(): void {
+    this.wishlistService.deleteProductFromWishlist(this._id).subscribe({
+      next: (res) => {
+        // Update local state immediately
+        this.isInWishlist.set(false);
+
+        // Update localStorage
+        const currentWishlist = this.getWishlistFromStorage();
+        const updatedWishlist = currentWishlist.filter(id => id !== this._id);
+        this.saveWishlistToStorage(updatedWishlist);
+
+        // Update wishlist count
+        this.wishlistService.wishlistNumber.set(res.data);
+        this.toastrService.success('Removed from wishlist successfully');
+      },
+      error: (error) => {
+        console.error('Error removing from wishlist:', error);
+        this.toastrService.error('Failed to remove from wishlist');
+      }
+    });
+  }
+
+  // Progress bar computed properties (existing code)
   progressPercentage = computed(() => {
     if (this.totalQuantity === 0) return 0;
     return Math.min((this.quantity / this.totalQuantity) * 100, 100);
   });
 
-  // Get progress bar color based on percentage
   progressBarColor = computed(() => {
     const percentage = this.progressPercentage();
-
-    if (percentage >= 80) {
-      return '#10B981';
-    } else if (percentage >= 50) {
-      return '#F59E0B';
-    } else if (percentage >= 20) {
-      return '#EF4444';
-    } else {
-      return '#DC2626';
-    }
+    if (percentage >= 80) return '#10B981';
+    if (percentage >= 50) return '#F59E0B';
+    if (percentage >= 20) return '#EF4444';
+    return '#DC2626';
   });
 
-  // Get progress bar width style
-  progressBarStyle = computed(() => {
-    return {
-      width: `${this.progressPercentage()}%`,
-      backgroundColor: this.progressBarColor()
-    };
-  });
-
-
-  addProductWishlist(id: string): void {
-    if (this.isFavorite(id)) {
-      // لو المنتج موجود → احذفه
-      this.wishlistService.deleteProductFromWishlist(id).subscribe({
-        next: (res) => {
-          this.toastrService.info(res.message, 'Basket');
-
-          this.wishlistService.favoriteList.set(
-            this.wishlistService.favoriteList().filter(productId => productId !== id)
-          );
-          this.wishlistService.favoriteNumber.set(this.wishlistService.favoriteList().length);
-        }
-      });
-    } else {
-      // لو المنتج مش موجود → ضيفه
-      this.wishlistService.addProductToWishlist(id).subscribe({
-        next: (res) => {
-          this.toastrService.success(res.message, 'Basket');
-
-          this.wishlistService.favoriteList.set([
-            ...this.wishlistService.favoriteList(),
-            id
-          ]);
-          this.wishlistService.favoriteNumber.set(this.wishlistService.favoriteList().length);
-        }
-      });
-    }
-  }
-
-  isFavorite(id: string): boolean {
-    return this.wishlistService.favoriteList().includes(id);
-  }
-
-
+  progressBarStyle = computed(() => ({
+    width: `${this.progressPercentage()}%`,
+    backgroundColor: this.progressBarColor()
+  }));
 }

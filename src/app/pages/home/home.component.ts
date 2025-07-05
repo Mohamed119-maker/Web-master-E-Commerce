@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { CardComponent } from "../../shared/components/card/card/card.component";
 import { CurrencyPipe } from '@angular/common';
 import { ICategory } from '../../shared/interfaces/icategory';
+import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,10 @@ import { ICategory } from '../../shared/interfaces/icategory';
 export class HomeComponent implements OnInit {
   private readonly toaster = inject(ToastrService);
   private readonly productsService = inject(ProductsService);
+  private readonly wishlistService = inject(WishlistService);
   allProducts: WritableSignal<IProduct[]> = signal([]);
   allCategories: WritableSignal<ICategory[]> = signal([]);
+  allProductWishlist = signal<IProduct[]>([]);
   images: string[] = ["/240_F_1200981667_22pBq7BCVENEncp18aBcjqImGqr5DDOt.jpg", "/240_F_794318391_9EUlZQma1cTfBYAraHfneIui0OmiUtjC.jpg", "/240_F_795018435_5nkOllwtJP9xDYxoIlYq8AwF2NwKmgea.jpg"]
 
   ngOnInit(): void {
@@ -48,6 +51,21 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
+  getAllProductWishlist() {
+    this.wishlistService.getAllProductWishlist().subscribe({
+      next: (res) => {
+        console.log(res.data.wishlist);
+        this.allProductWishlist.set(res.data.wishlist);
+
+      }
+    })
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this.allProductWishlist().some(p => p._id === productId);
+  }
+
 
 
   customOptions: OwlOptions = {
@@ -126,5 +144,6 @@ export class HomeComponent implements OnInit {
     },
     nav: true
   };
+
 
 }
