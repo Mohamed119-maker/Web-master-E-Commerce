@@ -1,0 +1,345 @@
+<section class="container my-5">
+  <div class="slider px-2 md:px-0 relative">
+    <owl-carousel-o [options]="customOptions">
+      @for (img of images; track $index) {
+      <ng-template carouselSlide>
+        <img class="h-[300px] sm:h-[400px] md:h-[500px] rounded-lg w-full object-cover" [src]="img" alt="">
+      </ng-template>
+      }
+    </owl-carousel-o>
+
+    <div
+      class="title absolute top-4 sm:top-8 md:top-16 left-[3%] sm:left-[4%] md:left-[5%] z-10 max-w-[90%] sm:max-w-[80%] md:max-w-[425px]">
+      <div class="off flex items-center gap-2 flex-wrap">
+        <span class="font-[500] text-[10px] sm:text-[11px] md:text-[12px] text-text-color uppercase">Exclusive
+          Offer</span>
+        <div
+          class="offer font-[600] text-[12px] sm:text-[13px] md:text-[14px] text-[#038E42] py-1 sm:py-2 px-2 sm:px-4 rounded-[40px] bg-white/90">
+          -20% Off</div>
+      </div>
+      <h1
+        class="font-[700] text-[24px] sm:text-[32px] md:text-[40px] lg:text-[48px] text-text-color py-2 sm:py-3 md:py-5 leading-tight">
+        Specialist in the grocery store
+      </h1>
+      <h3 class="text-[14px] sm:text-[15px] md:text-[16px] font-[400] text-text-color mb-1">Only this week. Don't
+        miss...</h3>
+      <h3 class="text-text-color mb-3 sm:mb-4">from <span
+          class="text-[24px] sm:text-[30px] md:text-[36px] font-[600] text-[#D51243]">$7.99</span></h3>
+      <button
+        class="py-2 px-4 bg-main-color rounded-[30px] text-white text-[12px] sm:text-[14px] font-[500] hover:bg-opacity-90 transition-all">
+        Shop Now <i class="fa-solid fa-arrow-right ml-1"></i>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="banner-box h-auto md:h-[104px] rounded-[7px] my-5 mx-2 md:mx-0 bg-[#F8EFEA] flex flex-col md:flex-row justify-between items-center p-4 md:px-5 text-center md:text-left">
+    <h2 class="text-second-color text-[16px] sm:text-[18px] md:text-[20px] font-[600] py-2 md:py-0 order-1 md:order-1">
+      <span class="font-[700]">100% Secure delivery</span> without contacting the courier
+    </h2>
+    <div class="banner order-2 md:order-2 py-2 md:py-0">
+      <img class="w-full max-w-[200px] md:w-auto h-auto" src="/banner-box2.jpg.png" alt="banner image">
+    </div>
+    <button routerLink="/shop"
+      class="w-full sm:w-auto py-2 px-4 my-2 md:m-0 rounded-[30px] bg-white border border-gray-200 hover:bg-gray-50 transition-all order-3 md:order-3 text-[14px] font-[500]">
+      Shop Now
+    </button>
+  </div>
+</section>
+
+<section class="offers container px-2 md:px-0">
+  <div class="grid lg:grid-cols-2 items-center gap-4 sm:gap-6 md:gap-8 text-center lg:text-start">
+    <div class="lg:text-end">
+      <h3 class="text-[#233A95] font-[300] text-[20px] sm:text-[24px] md:text-[26px] leading-tight">Special Offers of
+        the week!</h3>
+      <p class="text-[#9B9BB4] font-[400] text-[14px] sm:text-[15px] mt-2">Ut placerat, magna quis porttitor vulputate,
+        magna nunc auctor ante.</p>
+    </div>
+    <div class="flex justify-center lg:justify-start items-center gap-2 flex-wrap">
+      <span
+        class="p-2 sm:p-3 md:p-4 text-white rounded-md bg-[#ED174A] text-[14px] sm:text-[16px] font-[600] min-w-[40px] sm:min-w-[50px] text-center">71</span>
+      <span class="text-[#ED174A] text-[18px] sm:text-[20px] font-[600]">:</span>
+      <span
+        class="p-2 sm:p-3 md:p-4 text-white rounded-md bg-[#ED174A] text-[14px] sm:text-[16px] font-[600] min-w-[40px] sm:min-w-[50px] text-center">14</span>
+      <span class="text-[#ED174A] text-[18px] sm:text-[20px] font-[600]">:</span>
+      <span
+        class="p-2 sm:p-3 md:p-4 text-white rounded-md bg-[#ED174A] text-[14px] sm:text-[16px] font-[600] min-w-[40px] sm:min-w-[50px] text-center">43</span>
+      <span class="text-[#ED174A] text-[18px] sm:text-[20px] font-[600]">:</span>
+      <span
+        class="p-2 sm:p-3 md:p-4 text-white rounded-md bg-[#ED174A] text-[14px] sm:text-[16px] font-[600] min-w-[40px] sm:min-w-[50px] text-center">16</span>
+    </div>
+  </div>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 my-5 border-[2px] border-[#ED174A] rounded-[7px] p-2 sm:p-3 md:p-4">
+    @for (product of allProducts().slice(34,39); track product.title) {
+    @if (isInWishlist(product._id)) {
+    <div class="w-full">
+      <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+        [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+        [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+        [showProgress]="true" [showBtn]="true" (addToCart)="handleAddToCart($event)">
+      </app-card>
+    </div>
+    }@else {
+    <div class="w-full">
+      <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+        [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+        [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+        [showProgress]="true" [showBtn]="true" (addToCart)="handleAddToCart($event)">
+      </app-card>
+    </div>
+    }
+    }
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 my-6 sm:my-8 container px-2 md:px-0">
+  <!-- Banner 1 -->
+  <div class="rounded-xl h-[200px] sm:h-[220px] md:h-[240px] lg:h-[251px] banner-box-1 relative overflow-hidden">
+    <img class="w-full h-full object-cover rounded-lg" src="/bacola-banner-07.jpg.png" alt="">
+    <div class="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-10 max-w-[80%] sm:max-w-[70%]">
+      <h1 class="mb-2 font-[600] text-[20px] sm:text-[24px] md:text-[28px] text-text-color leading-tight">
+        The freshest<br />milk products
+      </h1>
+      <p class="font-[400] text-[11px] sm:text-[12px] text-[#9B9BB4] mb-3 sm:mb-4 md:mb-6">A family place for grocery
+      </p>
+      <button routerLink="/shop"
+        class="font-[500] text-[11px] sm:text-[12px] text-white bg-main-color px-3 sm:px-4 py-2 rounded-[30px] hover:bg-opacity-90 transition-all">
+        Shop Now
+      </button>
+    </div>
+  </div>
+  <!-- Banner 2 -->
+  <div class="rounded-xl h-[200px] sm:h-[220px] md:h-[240px] lg:h-[251px] banner-box-2 relative overflow-hidden">
+    <img class="w-full h-full object-cover rounded-lg" src="/bacola-banner-08.jpg.png" alt="">
+    <div class="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-10 max-w-[80%] sm:max-w-[70%]">
+      <h1 class="mb-2 font-[600] text-[20px] sm:text-[24px] md:text-[28px] text-text-color leading-tight">
+        Yogurt with<br /> Delicious Fruit
+      </h1>
+      <p class="font-[400] text-[11px] sm:text-[12px] text-[#9B9BB4] mb-3 sm:mb-4 md:mb-6">A different kind of grocery
+        store</p>
+      <button routerLink="/shop"
+        class="font-[500] text-[11px] sm:text-[12px] text-white bg-main-color px-3 sm:px-4 py-2 rounded-[30px] hover:bg-opacity-90 transition-all">
+        Shop Now
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="categories container px-2 md:px-0">
+  <owl-carousel-o [options]="categorySlider">
+    @for (category of allCategories() ; track $index) {
+    <ng-template carouselSlide>
+      <div class="my-5 border p-3 sm:p-4 rounded-lg hover:shadow-lg transition-all">
+        <img class="h-[120px] sm:h-[140px] md:h-[146px] w-full object-contain" [src]="category.image"
+          [alt]="category.name">
+        <h3 class="text-text-color text-[13px] sm:text-[14px] font-[600] text-center pt-2 sm:pt-3">{{category.name}}
+        </h3>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+</section>
+
+<section class="container justify-center my-8 sm:my-10 md:my-12 px-2 md:px-0">
+  <div class="best flex flex-col sm:flex-row justify-between items-start sm:items-center my-4 gap-3 sm:gap-4">
+    <div class="w-full sm:w-auto">
+      <h3 class="dois uppercase text-[18px] sm:text-[19px] md:text-[20px] font-[600] text-text-color">best sellers</h3>
+      <p class="text-[#9B9BB4] font-[400] text-[11px] sm:text-[12px] mt-1">Do not miss the current offers until the end
+        of month.</p>
+    </div>
+    <div class="w-full sm:w-auto">
+      <button routerLink="/shop"
+        class="w-full sm:w-auto text-[#9B9BB4] bg-white border border-[#D9D9E9] hover:bg-[#D9D9E9] hover:border-white transition-all delay-100 rounded-[30px] px-4 py-2 font-[500] text-[12px]">
+        View all <i class="fa-solid fa-arrow-right ml-1"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-4 md:gap-6">
+    <!-- Left side -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 w-full lg:w-1/3 gap-2 sm:gap-3 md:gap-4">
+      @for (product of allProducts().slice(7, 11); track product._id) {
+      @if (isInWishlist(product._id)) {
+      <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-all">
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="false" (addToCart)="handleAddToCart($event)">
+        </app-card>
+      </div>
+      }@else {
+      <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-all">
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="false" (addToCart)="handleAddToCart($event)">
+        </app-card>
+      </div>
+      }
+      }
+    </div>
+
+    <!-- Center Image & Text -->
+    <div class="flex flex-col items-center justify-center w-full lg:w-1/3 relative my-4 lg:my-0">
+      <div
+        class="text-center absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-10 px-4 max-w-[90%] lg:max-w-[80%]">
+        <h2 class="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-bold text-black leading-tight mb-2">
+          The Newest of <span class="text-btn-color">all products</span>
+        </h2>
+        <p class="text-[10px] sm:text-[11px] md:text-[12px] text-white mt-1 bg-black/50 px-2 py-1 rounded">JUST IN
+          BACOLA</p>
+      </div>
+      <img class="h-[250px] sm:h-[300px] md:h-[350px] lg:h-full w-full object-cover rounded-lg" src="/auth-slider2.jpg"
+        alt="Showcase" />
+    </div>
+
+    <!-- Right side -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 w-full lg:w-1/3 gap-2 sm:gap-3 md:gap-4">
+      @for (product of allProducts().slice(11, 15); track product._id) {
+      @if (isInWishlist(product._id)) {
+      <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-all">
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="false" (addToCart)="handleAddToCart($event)">
+        </app-card>
+      </div>
+      }@else {
+      <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-all">
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="false" (addToCart)="handleAddToCart($event)">
+        </app-card>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center my-5 px-2 md:px-0">
+  <div class="relative rounded-[7px] overflow-hidden group">
+    <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/bacola-banner-05.jpg.png"
+      alt="bacola banner">
+    <div class="absolute left-4 sm:left-6 md:left-8 lg:left-10 top-[50%] -translate-y-[50%] max-w-[80%] sm:max-w-[70%]">
+      <p class="text-second-color font-[600] text-[12px] sm:text-[13px] md:text-[14px]">Weekend Discount 40%</p>
+      <h3 class="text-[#3E445A] font-[600] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] py-1 leading-tight">
+        Natural Eggs</h3>
+      <p class="text-[#9B9BB4] font-[400] text-[11px] sm:text-[12px] py-1">Eat one every day</p>
+      <button
+        class="px-3 sm:px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[11px] sm:text-[12px] hover:bg-[#9b9baa] transition-all delay-100">
+        Shop Now
+      </button>
+    </div>
+  </div>
+
+  <div class="relative rounded-[7px] overflow-hidden group">
+    <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/bacola-banner-06.jpg.png"
+      alt="bacola banner">
+    <div class="absolute left-4 sm:left-6 md:left-8 lg:left-10 top-[50%] -translate-y-[50%] max-w-[80%] sm:max-w-[70%]">
+      <p class="text-second-color font-[600] text-[12px] sm:text-[13px] md:text-[14px]">Weekend Discount 40%</p>
+      <h3 class="text-[#3E445A] font-[600] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] py-1 leading-tight">
+        Taste the Best</h3>
+      <p class="text-[#9B9BB4] font-[400] text-[11px] sm:text-[12px] py-1">Shine the morning</p>
+      <button
+        class="px-3 sm:px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[11px] sm:text-[12px] hover:bg-[#9b9baa] transition-all delay-100">
+        Shop Now
+      </button>
+    </div>
+  </div>
+
+  <div class="relative rounded-[7px] overflow-hidden group md:col-span-2 lg:col-span-1">
+    <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/bacola-banner-10.jpg.png"
+      alt="bacola banner">
+    <div class="absolute left-4 sm:left-6 md:left-8 lg:left-10 top-[50%] -translate-y-[50%] max-w-[80%] sm:max-w-[70%]">
+      <p class="text-second-color font-[600] text-[12px] sm:text-[13px] md:text-[14px]">Weekend Discount 40%</p>
+      <h3 class="text-[#3E445A] font-[600] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] py-1 leading-tight">
+        Ditch the Junk</h3>
+      <p class="text-[#9B9BB4] font-[400] text-[11px] sm:text-[12px] py-1">Breakfast made better</p>
+      <button
+        class="px-3 sm:px-4 py-2 my-2 bg-[#C2C2D3] rounded-[30px] text-white font-[500] text-[11px] sm:text-[12px] hover:bg-[#9b9baa] transition-all delay-100">
+        Shop Now
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="container px-2 md:px-0">
+  <owl-carousel-o [options]="productSlider">
+    @for (product of allProducts() ; track product._id) {
+    <ng-template carouselSlide>
+      <div class="border rounded-[7px] m-1 sm:m-2 hover:shadow-lg transition-all">
+        @if (isInWishlist(product._id)) {
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="true" (addToCart)="handleAddToCart($event)">
+        </app-card>
+        }@else {
+        <app-card [_id]="product._id" [title]="product.title" [imageCover]="product.imageCover"
+          [description]="product.description" [ratingsAverage]="product.ratingsAverage"
+          [ratingsQuantity]="product.ratingsQuantity" [price]="product.price" [quantity]="product.quantity"
+          [showProgress]="false" [showBtn]="true" (addToCart)="handleAddToCart($event)">
+        </app-card>
+        }
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+</section>
+
+<section class="container px-2 md:px-0">
+  <div class="extra bg-[#FFEEF2] py-3 sm:py-4 my-2 rounded-[7px] px-4">
+    <p class="text-[#ED174A] text-center text-[14px] sm:text-[15px] md:text-[16px] font-[700] uppercase leading-tight">
+      Save an Extra 5-10 % On Every Autoship Order!
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 my-5">
+    <div class="rounded-[7px] flex flex-col group hover:shadow-lg transition-all">
+      <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/blog-3.jpg.png"
+        alt="blog image">
+      <div class="p-3 sm:p-4 flex-1">
+        <p class="dois text-[#9B9BB4] text-[12px] sm:text-[13px] font-[600] py-1">Grocery</p>
+        <h4 class="text-text-color text-[16px] sm:text-[18px] md:text-[20px] font-[600] leading-tight mb-2">
+          But I must explain to you how all this mistaken idea
+        </h4>
+        <p class="font-[500] text-[#71778E] text-[13px] sm:text-[14px] py-1">
+          Jan 13 2025 <span class="text-text-color">Sinan ISIK</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="rounded-[7px] flex flex-col group hover:shadow-lg transition-all">
+      <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/blog-5.jpg.png"
+        alt="blog image">
+      <div class="p-3 sm:p-4 flex-1">
+        <p class="dois text-[#9B9BB4] text-[12px] sm:text-[13px] font-[600] py-1">Grocery</p>
+        <h4 class="text-text-color text-[16px] sm:text-[18px] md:text-[20px] font-[600] leading-tight mb-2">
+          The Problem With Typefaces on the Web
+        </h4>
+        <p class="font-[500] text-[#71778E] text-[13px] sm:text-[14px] py-1">
+          Jan 13 2025 <span class="text-text-color">Sinan ISIK</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="rounded-[7px] flex flex-col group hover:shadow-lg transition-all md:col-span-2 lg:col-span-1">
+      <img class="rounded-[7px] w-full h-[200px] sm:h-[220px] md:h-[240px] object-cover" src="/blog-1.jpg.png"
+        alt="blog image">
+      <div class="p-3 sm:p-4 flex-1">
+        <p class="dois text-[#9B9BB4] text-[12px] sm:text-[13px] font-[600] py-1">Grocery</p>
+        <h4 class="text-text-color text-[16px] sm:text-[18px] md:text-[20px] font-[600] leading-tight mb-2">
+          English Breakfast Tea With Tasty Donut Desserts
+        </h4>
+        <p class="font-[500] text-[#71778E] text-[13px] sm:text-[14px] py-1">
+          Jan 13 2025 <span class="text-text-color">Sinan ISIK</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+@if(isLoading){
+<div class="w-full min-h-screen flex justify-center ">
+  <app-loading></app-loading>
+</div>
+}@else {
+<div class="max-w-6xl mx-auto bg-white shadow-md rounded-md p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Left Side: Contact & Delivery -->
+  <div class="w-full min-h-screen justify-center ">
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Contact</h2>
+      <input type="email" required placeholder="Email or mobile phone number"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-2">
+      <label class="flex items-center space-x-2 mb-6">
+        <input type="checkbox" class="form-checkbox">
+        <span>Email me with news and offers</span>
+      </label>
+
+      <h2 class="text-xl font-semibold mb-4">Delivery</h2>
+      <input type="text" required placeholder="Country/Region"
+        class="w-full border border-gray-300 rounded px-4 py-2 mb-2">
+      <div class="flex gap-2 mb-2">
+        <input type="text" placeholder="First name (optional)" class="w-1/2 border border-gray-300 rounded px-4 py-2">
+        <input type="text" required placeholder="Last name" class="w-1/2 border border-gray-300 rounded px-4 py-2">
+      </div>
+      <input type="text" required placeholder="Address" class="w-full border border-gray-300 rounded px-4 py-2 mb-2">
+      <input type="number" #phone placeholder="Phone" class="w-full border border-gray-300 rounded px-4 py-2 mb-2">
+      <div class="flex gap-2 mb-4">
+        <input type="text" placeholder="Postal code (optional)" class="w-1/2 border border-gray-300 rounded px-4 py-2">
+        <input type="text" #city required placeholder="City" class="w-1/2 border border-gray-300 rounded px-4 py-2">
+      </div>
+      <label class="flex items-center space-x-2 mb-4">
+        <input type="checkbox" class="form-checkbox">
+        <span>Save this information for next time</span>
+      </label>
+
+      <h2 class="text-xl font-semibold mb-2">Shipping method</h2>
+      <div class="bg-blue-100 text-blue-700 font-medium p-3 rounded flex justify-between items-center mb-6">
+        <span>Standard</span>
+        <span>Free</span>
+      </div>
+
+      <button class="bg-teal-600 text-white w-full py-3 rounded hover:bg-teal-700 transition"
+        (click)="checkOutSesstion()">Payment now</button>
+    </div>
+
+  </div>
+
+  <!-- Right Side: Product Summary -->
+  <div class="bg-gray-50 p-4 rounded-md w-full max-h-[500px] overflow-y-auto">
+    @for (detailsCart of detailsCart; track $index) {
+    @for (product of detailsCart.data.products; track $index) {
+    <table class="w-full min-w-full table-fixed border-collapse text-left mb-2">
+      <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="p-3 w-1/4">Product</th>
+          <th class="p-3 w-1/4 text-center">Count</th>
+          <th class="p-3 w-1/4 text-center">Price</th>
+          <th class="p-3 w-1/4 text-center">Total</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr class="border-b hover:bg-gray-50">
+          <td class="flex items-center gap-3 p-3">
+            <img [src]="product.product.imageCover" [alt]="product.product.title"
+              class="w-12 h-12 object-cover rounded" />
+            <span class="font-medium truncate">{{ product.product.title }}</span>
+          </td>
+          <td class="p-3 font-bold">
+            {{ product.count }}
+          </td>
+          <td class="p-3 font-bold">
+            {{ product.price }} EGP
+          </td>
+          <td class="p-3 font-bold">
+            {{ product.price * product.count }} EGP
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    }
+    <hr class="my-4">
+    <div class="flex justify-between mb-2">
+      <span>Subtotal:</span>
+      <span>{{ detailsCart.data.totalCartPrice | currency }}</span>
+    </div>
+    <div class="flex justify-between mb-2">
+      <span>Shipping:</span>
+      <span>Free</span>
+    </div>
+    <div class="flex justify-between font-bold text-lg">
+      <span>Total:</span>
+      <span>{{ detailsCart.data.totalCartPrice | currency }}</span>
+    </div>
+    }
+  </div>
+</div>
+
+}

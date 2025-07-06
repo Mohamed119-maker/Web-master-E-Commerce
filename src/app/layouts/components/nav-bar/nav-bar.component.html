@@ -1,0 +1,213 @@
+<header>
+  <section class="bg-main-color h-[36px] flex justify-center items-center">
+    <aside>
+      <div class="container text-center text-white">
+        <p class="font-[400] text-[12px] ">Due to current circumstances, there may be slight delays in order
+          processing</p>
+      </div>
+    </aside>
+  </section>
+  <div class="text-[#3E445A] font-[400] text-[12px] border-b">
+    <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center flex-wrap gap-4 py-3">
+
+      <!-- Links -->
+      <ul class="flex justify-center items-center gap-3">
+        <li>About Us</li>
+        <li>Compare</li>
+        <li>Wishlist</li>
+      </ul>
+
+      <!-- Secure Delivery Message -->
+      <div class="flex justify-center items-center gap-2 text-center">
+        <i class="fas fa-shield-alt w-5 text-gray-600"></i>
+        <p>100% Secure delivery without contacting the courier</p>
+      </div>
+
+      <!-- Help -->
+      <div class="flex justify-center items-center">
+        <p class="ps-3">Need help? Call Us: <span class="text-main-color font-[500]">+0020 500</span></p>
+      </div>
+
+      <!-- Language & Country -->
+      <div class="flex justify-center items-center gap-4">
+
+        <!-- Language Dropdown -->
+        <div class="relative dropdown-container">
+          <button type="button" (click)="toggleLanguageDropdown($event)"
+            class="text-[#3E445A] font-medium inline-flex items-center focus:outline-none">
+            {{ selectedLanguage }}
+            <i class="fas fa-chevron-down w-2.5 h-2.5 ms-2" [class.rotate-180]="isLanguageDropdownOpen"></i>
+          </button>
+          @if (isLanguageDropdownOpen) {
+          <div class="absolute right-0 mt-2 w-32 bg-white text-gray-700 rounded shadow-lg z-10 border">
+            @for (language of languages; track language) {
+            <div (click)="selectLanguage(language)" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              [class]="language === selectedLanguage ? 'bg-main-color text-white' : ''">
+              {{ language }}
+            </div>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Currency Dropdown -->
+        <div class="relative dropdown-container">
+          <button type="button" (click)="toggleCurrencyDropdown($event)"
+            class="text-[#3E445A] font-medium inline-flex items-center focus:outline-none">
+            {{ selectedCurrency }}
+            <i class="fas fa-chevron-down w-2.5 h-2.5 ms-2" [class.rotate-180]="isCurrencyDropdownOpen"></i>
+          </button>
+          @if (isCurrencyDropdownOpen) {
+          <div class="absolute right-0 mt-2 w-24 bg-white text-gray-700 rounded shadow-lg z-10 border">
+            @for (currency of currencies; track currency) {
+            <div (click)="selectCurrency(currency)" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              [class]="currency === selectedCurrency ? 'bg-main-color text-white' : ''">
+              {{ currency }}
+            </div>
+            }
+          </div>
+          }
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container mx-auto flex flex-wrap justify-between items-center pt-5 px-4 gap-4">
+
+    <!-- Logo -->
+    <div class="logo flex-shrink-0">
+      <img class="w-[140px] sm:w-[166px] h-auto" src="/Link - Bacola Store.png" alt="Basket logo">
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-input flex-grow max-w-full sm:max-w-[500px] md:max-w-[763px] w-full">
+      <form class="w-full">
+        <label for="default-search" class="sr-only">Search</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 end-3 flex items-center ps-3 pointer-events-none">
+            <i class="fas fa-search w-4 h-4 text-gray-500"></i>
+          </div>
+          <input type="search" id="default-search"
+            class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-main-color focus:border-main-color"
+            placeholder="Search for products..." />
+        </div>
+      </form>
+    </div>
+
+    <!-- Profile + Cart -->
+    <div class="flex items-center gap-3">
+
+      <div class="w-10 h-10 rounded-full border border-gray-300 flex justify-center items-center">
+        @if (name()=== '') {
+        <img src="/Vector.png" alt="profile-icn">
+        }@else {
+        <span class="w-8 h-8 flex items-center justify-center bg-main-color text-white rounded-full">
+          {{ name() }}
+        </span>
+
+        }
+      </div>
+
+      <div class="total-price text-[#3E445A] font-semibold hidden sm:block">
+        <p>{{cartTotalPrice() | currency}}</p>
+      </div>
+
+      <div routerLink="/cart"
+        class="cart-icon cursor-pointer w-10 h-10 rounded-full flex justify-center items-center bg-[#FFF1EE] relative">
+
+        <img src="/cart.png" alt="cart icon w-4 h-4">
+        <div
+          class="num w-5 h-5 rounded-full bg-[#EA2B0F] text-white text-xs flex justify-center items-center absolute -top-1 -right-1">
+          {{countCart()}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <nav class=" border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+        class="flex items-center justify-between text-[15px] font-[600] w-full py-2 px-7 uppercase text-white bg-main-color rounded-[50px] md:w-auto"><i
+          class="fa-solid fa-bars text-white pe-2"></i> All Categories
+        <i class="fas fa-chevron-down w-2.5 h-2.5 ms-2.5 text-white"></i></button>
+
+      <!-- Dropdown menu -->
+      <div id="dropdownNavbar"
+        class="z-50 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-400 " aria-labelledby="dropdownLargeButton">
+          @for (category of categories(); track category._id) {
+          <li>
+            <a
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">{{category.name}}</a>
+          </li>
+          }
+
+
+        </ul>
+
+      </div>
+      <button data-collapse-toggle="navbar-dropdown" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-dropdown" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <i class="fas fa-bars w-5 h-5"></i>
+      </button>
+      <div class="hidden w-full md:block md:w-auto mx-auto" id="navbar-dropdown">
+        <ul
+          class="flex flex-col  font-[600]  p-4 uppercase md:p-0 mt-4 border text-[#3E445A] border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li>
+            <a routerLink="/" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class="block px-4 py-2  rounded-[50px]  text-[15px]">Home</a>
+          </li>
+          <li>
+            <a routerLink="/aboutus" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center ">
+
+              About Us</a>
+          </li>
+          <li>
+            <a routerLink="/shop" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
+              <i class="fas fa-shopping-bag w-5 h-5 pt-1"></i>
+              Shop</a>
+          </li>
+
+          <li>
+
+
+            <a routerLink="/blog" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
+              <i class="fas fa-newspaper w-5 h-5 pt-1"></i>
+              Blog</a>
+          </li>
+          <li>
+            <a routerLink="/contact" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class=" px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">
+              <i class="fas fa-envelope w-5 h-5 pt-1"></i>
+              Contact</a>
+          </li>
+          <li>
+            <a routerLink="/wishlist" routerLinkActive="text-[#35AFA0] bg-[#F0FAFF]"
+              class="px-4 py-2 rounded-[50px] text-[15px] flex items-center gap-2">wish list
+              <i class="fa-regular fa-heart w-5 h-5 pt-1"></i>
+            </a>
+          </li>
+
+          <li>
+            <a role="button" (click)="authService.logout()"
+              class="block py-2 px-3 text-white hover:text-hoverBg rounded-md bg-red-600 dark:text-white lg:dark:text-gray-400">Logout</a>
+          </li>
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>

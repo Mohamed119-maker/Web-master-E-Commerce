@@ -1,0 +1,29 @@
+<section class="max-w-5xl mx-auto my-10 px-4">
+    <h1 class="text-3xl font-bold mb-2" style="color: #233A95;">My Wishlist</h1>
+    <p class="mb-6 text-gray-500">All your favorite products in one place.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @for (product of wishlistItems(); track product._id) {
+        <div
+            class="relative bg-white rounded-lg shadow p-4 flex flex-col items-center group transition hover:shadow-lg">
+            <!-- Remove Button -->
+            <button
+                class="absolute top-3 right-3 bg-white border border-[#35AFA0] text-[#35AFA0] rounded-full p-2 hover:bg-[#35AFA0] hover:text-white transition"
+                (click)="deleteProduct(product._id)">
+                <i class="fas fa-heart-broken"></i>
+            </button>
+            <!-- Product Image -->
+            <img [src]="product.imageCover" [alt]="product.title" class="h-32 w-32 object-contain mb-3 rounded" />
+            <!-- Product Title -->
+            <h2 class="text-lg font-semibold text-center mb-1" style="color: #233A95;">{{ product.title }}</h2>
+            <!-- Price -->
+            <div class="text-xl font-bold mb-2" style="color: #35AFA0;">{{ product.price | currency }}</div>
+            <!-- Add to Cart Button -->
+            <button class="w-full py-2 rounded-full font-semibold transition"
+                style="background-color: #35AFA0; color: white;" (click)="addToCart(product._id)">
+                Add to Cart
+            </button>
+        </div>
+        }
+    </div>
+</section>

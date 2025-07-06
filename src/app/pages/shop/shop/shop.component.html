@@ -1,0 +1,76 @@
+@if (isLoading) {
+<div class="w-full h-[70vh] flex justify-center items-center">
+  <app-loading></app-loading>
+</div>
+} @else {
+<div class="grid grid-cols-12 gap-6 px-6 py-8 relative">
+  <!-- Sidebar -->
+  <aside class="col-span-12 md:col-span-3 space-y-6">
+    <!-- Categories -->
+    <div>
+      <h2 class="text-xl font-semibold mb-2">Product Categories</h2>
+      @for (category of categories; track $index) {
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" (change)="toggleCategory(category , isCategoryChecked[$index] , $index)" />
+        <span>{{ category }}</span>
+      </label>
+      }
+    </div>
+
+    <!-- Brands -->
+    <div>
+      <h2 class="text-xl font-semibold mb-2">Brands</h2>
+      @for (brand of brands; track $index) {
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" (change)="toggleBrand(brand, isBrandChecked[$index] , $index)" />
+        <span>{{ brand }}</span>
+      </label>
+      }
+    </div>
+  </aside>
+
+  <!-- Products Section -->
+  <section class="col-span-12 md:col-span-9">
+    <div class="flex justify-between mb-4 flex-col-reverse md:flex-row ">
+      <input type="text" class=" w-full lg:w-[80%] rounded-md mt-5 md:mt-0" placeholder="Search..." [(ngModel)]="search"
+        (input)="onSearchChange()" />
+      <select class="border rounded px-3 py-2" (change)="sortProducts(getNameOption($event))">
+        <option value="a-z">Sort by: A-Z</option>
+        <option value="z-a">Sort by: Z-A</option>
+        <option value="asc">Price Low to High</option>
+        <option value="desc">Price High to Low</option>
+      </select>
+    </div>
+    @if(isFakeLoading){
+    <div class="w-full h-[50vh] flex justify-center items-center">
+      <app-loading></app-loading>
+    </div>
+    }@else {
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
+      @for (item of filteredProducts; track item._id) {
+      <div class="border rounded-xl shadow-sm hover:shadow-lg transition " (click)="getSpecialProduct(item._id)"
+        (click)="isOpenWindowDetails = !isOpenWindowDetails" (click)="setScrollXY(item._id)">
+        <img [src]="item.imageCover" class="w-full h-40 object-contain p-2" alt="{{ item.title }}" />
+        <div class="p-3 space-y-2">
+          <h3 class="text-xl font-semibold line-clamp-2">{{ item.title |slice :" ":0:2:" " }}</h3>
+          <h4 class="text-main-color font-bold text-md">{{ item.brand.name }}</h4>
+          <p class="text-[#D51243] font-bold text-lg">${{ item.price }}</p>
+          <span class="ml-2 text-gray-500">{{ item.ratingsAverage }}</span>
+          <i class="fa fa-star text-yellow-300 ms-2"></i>
+        </div>
+      </div>
+      }@empty {
+      <img src="/no-product.png" alt="no found">
+      }
+
+    </div>
+    }
+
+  </section>
+</div>
+@if(isOpenWindowDetails){
+<app-details [product]="specialProduct" (fire)="closeWindowDetails($event)" [scrollX]="scrollX" [scrollY]=" scrollY">
+</app-details>
+}
+}

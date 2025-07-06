@@ -1,0 +1,44 @@
+<div class="relative rounded-[7px] p-5 border-b md:border-e md:border-b-0 ">
+  @if(!isInWishlist()){
+  <p (click)="toggleWishlist()">
+    <i class="fa-regular fa-heart text-main-color cursor-pointer"></i>
+  </p>
+  } @if (isInWishlist()) {
+  <p (click)="toggleWishlist()">
+    <i class="fa-solid fa-heart text-main-color cursor-pointer"></i>
+  </p>
+  }
+  <img class="object-contain rounded-t-[7px] h-[173px] w-full" [src]="imageCover" [alt]="title">
+  <h2 class="py-2 font-[600] text-[14px] text-text-color text-center">{{title|slice:' ':0:2:' '}}</h2>
+  <span class="stock font-[600] text-[11px] uppercase flex justify-center py-2 text-second-color">in stock</span>
+  <div class="flex justify-center items-center gap-3">
+    <div class="flex items-center py-2">
+      @for (num of [1,2,3,4,5].slice(0 , ratingsAverage); track $index) {
+      <span><i class="fas fa-star text-yellow-300"></i></span>
+      }
+      @if (ratingsAverage % 1 !== 0) {
+      <span><i class="fas fa-star-half-stroke text-yellow-300"></i></span>
+      }
+      <span class="text-gray-500">{{ratingsAverage}}</span>
+    </div>
+    <span class="rate text-[#71778E] text-[15px] font-[600] flex items-center gap-1">{{ratingsQuantity}}
+      <span>review</span></span>
+  </div>
+  <div class="flex justify-center items-center gap-2 py-2">
+    <h3 class="new-price text-[#D51243] text-[18px] font-[600]">{{price |currency }}</h3>
+  </div>
+  @if (showProgress===true) {
+  <div class="quantity">
+    <div class="w-full bg-[#EDEEF5] rounded-full h-1.5 mb-4 ">
+      <div class="h-1.5 rounded-full transition-all duration-300" [ngStyle]="progressBarStyle()"></div>
+    </div>
+    <div class="mb-1 text-[12px] text-text-color font-[400] text-center "> the available products: <span
+        class="text-[#233A95] font-[600] text-[19px] ps-1">{{quantity }}</span>
+    </div>
+  </div>
+  }@else if (showBtn===true) {
+  <button (click)="emitAddToCart()"
+    class="w-[95%] py-2 bg-btn-color text-text-color text-[12px]font-[500] rounded-[30px] mx-auto">Add to
+    cart</button>
+  }
+</div>

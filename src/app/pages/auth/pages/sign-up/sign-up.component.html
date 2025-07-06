@@ -1,0 +1,143 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
+  <section class="w-full max-w-5xl bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 space-y-6">
+    <h1 class="text-3xl font-bold text-center text-green-600 dark:text-green-400">Register Now</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="space-y-6">
+
+      <!-- Name -->
+      <div>
+        <label for="name" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">Name</label>
+        <input formControlName="name" type="text" id="name"
+          class="w-full p-2.5 border rounded-lg text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-400 outline-none" />
+        @let nameControl = registerForm.get("name");
+        @if(nameControl?.errors && nameControl?.touched){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-400">
+          @if(nameControl?.getError("required")){
+          Name is required.
+          } @else if (nameControl?.getError("minlength")) {
+          Name must be at least 3 characters.
+          } @else {
+          Name must be less than 20 characters.
+          }
+        </p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">Email</label>
+        <input formControlName="email" type="email" id="email"
+          class="w-full p-2.5 border rounded-lg text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-400 outline-none" />
+        @let emailControl = registerForm.get("email");
+        @if(emailControl?.errors && emailControl?.touched){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-400">
+          @if(emailControl?.getError("required")) {
+          Email is required.
+          } @else {
+          Please enter a valid email.
+          }
+        </p>
+        }
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">Password</label>
+        <div class="relative">
+          <input formControlName="password" [type]="shwoPass ? 'password' : 'text'" id="password"
+            class="w-full p-2.5 border rounded-lg text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-400 outline-none" />
+          <span (click)="changeType()"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-300 text-lg">
+            <i class="fa-solid" [class.fa-eye]="shwoPass" [class.fa-eye-slash]="!shwoPass"></i>
+          </span>
+        </div>
+        @let passwordControl = registerForm.get("password");
+        @if(passwordControl?.errors && passwordControl?.touched){
+        <div class="mt-2 text-sm text-red-600 dark:text-red-400 space-y-1">
+          @if(passwordControl?.getError("required")){
+          <p>Password is required.</p>
+          } @else {
+          <ul class="list-disc list-inside text-xs">
+            <li>Starts with an uppercase letter (A-Z).</li>
+            <li>At least 6 characters long.</li>
+            <li>Only letters, numbers, or underscores.</li>
+          </ul>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Re-Password -->
+      <div>
+        <label for="rePassword" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">Confirm
+          Password</label>
+        <div class="relative">
+          <input formControlName="rePassword" [type]="shwoPass ? 'password' : 'text'" id="rePassword"
+            class="w-full p-2.5 border rounded-lg text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-400 outline-none" />
+          <span (click)="changeType()"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-300 text-lg">
+            <i class="fa-solid" [class.fa-eye]="shwoPass" [class.fa-eye-slash]="!shwoPass"></i>
+          </span>
+        </div>
+        @if(registerForm.getError("mismatch") && registerForm.get("rePassword")?.touched){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-400">Password confirmation is incorrect.</p>
+        }
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label for="phone" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">Phone</label>
+        <input formControlName="phone" type="tel" id="phone"
+          class="w-full p-2.5 border rounded-lg text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-400 outline-none" />
+        @let phoneControl = registerForm.get("phone");
+        @if(phoneControl?.errors && phoneControl?.touched){
+        <div class="mt-2 text-sm text-red-600 dark:text-red-400">
+          @if(phoneControl?.getError("required")){
+          <p>Phone number is required.</p>
+          } @else {
+          <ul class="list-disc list-inside text-xs">
+            <li>Starts with 010, 011, 012, or 015.</li>
+            <li>Exactly 11 digits.</li>
+          </ul>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Register Button -->
+      <div class="text-end">
+        <button [disabled]="loading" type="submit"
+          class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+          @if(loading) {
+          <i class="fa-solid fa-spinner fa-spin me-2"></i>
+          }
+          Register
+        </button>
+      </div>
+
+      <!-- Already have account -->
+      <p class="text-sm text-gray-700 dark:text-gray-300 text-center">
+        Already have an account?
+        <a routerLink="/sign-in" class="text-green-600 dark:text-green-400 font-medium hover:underline">Sign in now</a>
+      </p>
+
+      <!-- Error/Success Alerts -->
+      @if(msgEmailExist){
+      <div
+        class="flex items-center p-3 text-sm rounded-lg bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-300">
+        <i class="fa-solid fa-circle-exclamation me-2"></i>
+        <span>{{ msgEmailExist }}</span>
+      </div>
+      }
+
+      @if(msgSuccess){
+      <div
+        class="flex items-center p-3 text-sm rounded-lg bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-300">
+        <i class="fa-solid fa-circle-check me-2"></i>
+        <span>{{ msgSuccess }}</span>
+      </div>
+      }
+
+    </form>
+  </section>
+</div>

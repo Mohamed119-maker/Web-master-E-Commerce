@@ -1,0 +1,56 @@
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-container button {
+    transition: all 0.2s ease;
+}
+
+.dropdown-container button:hover {
+    opacity: 0.8;
+}
+
+.dropdown-container i {
+    transition: transform 0.2s ease;
+}
+
+.dropdown-container i.rotate-180 {
+    transform: rotate(180deg);
+}
+
+
+.dropdown-container>div {
+    animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-container>div>div {
+    transition: all 0.15s ease;
+}
+
+.dropdown-container>div>div:hover {
+    background-color: #f3f4f6;
+    transform: translateX(2px);
+}
+
+/* Selected item styling */
+.dropdown-container>div>div.bg-main-color {
+    background-color: #35AFA0 !important;
+    color: white !important;
+}
+
+#navbar-dropdown ul li {
+    font-family: "Dosis", sans-serif;
+
+}

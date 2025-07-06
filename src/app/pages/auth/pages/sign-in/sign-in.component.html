@@ -1,0 +1,96 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
+  <section class="w-full max-w-5xl bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 space-y-6">
+
+    <h1 class="text-3xl font-extrabold text-green-600 text-center dark:text-green-400">Login Now</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-5">
+
+      <!-- Email Field -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
+        <input formControlName="email" type="email" id="email"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-green-400 focus:outline-none">
+
+        @let emailControl = loginForm.get("email");
+        @if(emailControl?.errors && emailControl?.touched){
+        <div class="mt-2 text-sm text-red-600 dark:text-red-400">
+          @if (emailControl?.getError('required')) {
+          <p>Email is required.</p>
+          }
+          @else {
+          <p>Please enter a valid email.</p>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Password</label>
+        <div class="relative">
+          <input formControlName="password" [type]="shwoPass ? 'password' : 'text'" id="password"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-green-400 focus:outline-none">
+          <span (click)="changeType()"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-300 text-lg">
+            <i class="fa-solid" [class.fa-eye]="shwoPass" [class.fa-eye-slash]="!shwoPass"></i>
+          </span>
+        </div>
+
+        <a routerLink="/forgetpassword" class="text-sm text-red-700 dark:text-red-400 hover:underline mt-1 block">Forgot
+          password?</a>
+
+        @let passwordControl = loginForm.get("password");
+        @if(passwordControl?.errors && passwordControl?.touched){
+        <div class="mt-2 text-sm text-red-600 dark:text-red-400 space-y-1">
+          @if (passwordControl?.getError("required")) {
+          <p>Password is required.</p>
+          }
+          @else {
+          <div>
+            <p class="font-semibold">Password must:</p>
+            <ul class="list-disc list-inside text-xs">
+              <li>Start with an uppercase letter.</li>
+              <li>Be at least 6 characters long.</li>
+              <li>Contain only letters, numbers, or underscores.</li>
+            </ul>
+          </div>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Success/Error Message -->
+      @if(msgEmailExist){
+      <div
+        class="flex items-center p-3 text-sm rounded-lg bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-300">
+        <i class="fa-solid fa-circle-exclamation me-2"></i>
+        <span>{{ msgEmailExist }}</span>
+      </div>
+      }
+
+      @if(msgSuccess){
+      <div
+        class="flex items-center p-3 text-sm rounded-lg bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-300">
+        <i class="fa-solid fa-circle-check me-2"></i>
+        <span>{{ msgSuccess }}</span>
+      </div>
+      }
+
+      <!-- Submit Button and Sign Up -->
+      <div class="flex items-center justify-between mt-6">
+        <p class="text-sm text-gray-700 dark:text-gray-300">
+          Don't have an account?
+          <a routerLink="/sign-up" class="text-green-600 font-medium hover:underline dark:text-green-400">Sign up</a>
+        </p>
+
+        <button [disabled]="loading" type="submit"
+          class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (loading) {
+          <i class="fa-solid fa-spinner fa-spin me-2"></i>
+          }
+          Login
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
