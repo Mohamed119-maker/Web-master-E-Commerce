@@ -36,11 +36,27 @@ export class AuthService {
   }
 
   saveUserData(): void {
-    this.userData = jwtDecode(
-      JSON.stringify(localStorage.getItem('userToken'))
-    );
-    this.userName.set(this.userData.name.charAt(0).toUpperCase())
-    console.log(this.userName());
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        this.userData.set(decodedToken as IUser);
+
+        // Safely access the name property
+        const userName = (decodedToken as any)?.name;
+        if (userName && typeof userName === 'string' && userName.length > 0) {
+          this.userName.set(userName.charAt(0).toUpperCase());
+        } else {
+          this.userName.set('');
+        }
+        console.log(this.userName());
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        this.userName.set('');
+      }
+    } else {
+      this.userName.set('');
+    }
   }
 
   logout() {

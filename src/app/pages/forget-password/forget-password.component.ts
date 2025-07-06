@@ -41,7 +41,8 @@ export class ForgetPasswordComponent {
     email: new FormControl(null, [Validators.required, Validators.email]),
     newPassword: new FormControl(null, [
       Validators.required,
-      Validators.pattern(/^[A-Z]\w{5,}$/),
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/),
     ]),
   });
 
@@ -63,7 +64,7 @@ export class ForgetPasswordComponent {
           }
         },
         error: (err) => {
-          this.msgEmailError = err.error.message;
+          this.msgEmailError = err.error?.message || 'Failed to send verification code';
           this.loading = false;
         },
       });
@@ -86,9 +87,9 @@ export class ForgetPasswordComponent {
           }
         },
         error: (err) => {
-          this.msgCodeError = err.error.message;
+          this.msgCodeError = err.error?.message || 'Invalid verification code';
           this.loading = false;
-          console.log(this.msgCodeError);
+          console.error('Code verification error:', err);
         },
       });
     }
@@ -99,9 +100,18 @@ export class ForgetPasswordComponent {
       this.loading = true;
       this.authService.resetPassword(this.newPasswordForm.value).subscribe({
         next: (res) => {
-          localStorage.setItem('userToken', res.token);
-          this.authService.saveUserData();
-          this.msgRepassSucess = 'Success';
+          // Store the token if provided
+          if (res.token) {
+            localStorage.setItem('userToken', res.token);
+            // Safely call saveUserData with error handling
+            try {
+              this.authService.saveUserData();
+            } catch (error) {
+              console.warn('Error saving user data after password reset:', error);
+            }
+          }
+
+          this.msgRepassSucess = 'Password changed successfully!';
           this.msgRepassError = '';
 
           setTimeout(() => {
@@ -110,9 +120,9 @@ export class ForgetPasswordComponent {
           this.loading = false;
         },
         error: (err) => {
-          this.msgRepassError = err.error.message;
+          this.msgRepassError = err.error?.message || 'An error occurred while changing password';
           this.loading = false;
-          console.log(err);
+          console.error('Password reset error:', err);
         },
       });
     }
